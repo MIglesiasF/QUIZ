@@ -27,13 +27,7 @@ exports.index = function(req, res) {
 	
 	models.Quiz.findAll({where:["pregunta like ?", busqueda]}).then(function(quizes){
 				res.render('quizes/index',{quizes: quizes});
-			}).catch(function(error) { next(error);})
-	
-	
-	//models.Quiz.findAll().then(function(quizes){
-	//	res.render('quizes/index',{quizes: quizes});
-	//		}).catch(function(error) { next(error);})
-	
+			}).catch(function(error) { next(error);})	
 };
 
 //GET /quizes/:id
