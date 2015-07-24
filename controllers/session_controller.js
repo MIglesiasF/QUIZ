@@ -1,3 +1,12 @@
+// MW de autorización de accesos HTTP restringidos
+exports.loginRequired = function(req, res, next){
+	if (req.session.user)
+	{
+		next();
+	}else{
+		res.redirect('/login');
+	}
+};
 // Get /login -- Formulario de login
 exports.new = function (req, res) {
 	var errors = req.session.errors || {};
@@ -16,13 +25,15 @@ exports.create = function(req, res){
 		if(error) { // si hay error retornamos mensajes de error de sesión
 			req.session.errors = [{"message": 'Se ha producido un error: ' + error }];
 			res.redirect("/login");
+			return;
 		}
 
 		// Crear req.session.user y guardar campos id y username
 		// La sesión se define por la existencia de : req.session.user
 		req.session.user = {id: user.id, username: user.username};
 		res.redirect(res.locals.session.redir.toString());
-		//res.redirect(req.sesion.redir.toString()); // redirección a path anterior a login
+		//res.redirect(req.session.redir.toString()); // redirección a path anterior a login
+		               
 	});
 };
 

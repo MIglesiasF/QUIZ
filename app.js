@@ -38,7 +38,7 @@ app.use(function(req, res, next){
 	if (!req.path.match(/\/login|\/logout/))
 	{
 		req.session.redir = req.path;
-		console.log('req.session.redir = ' + req.session.redir);
+		//console.log('req.session.redir = ' + req.session.redir);
 	}
 
 	// Hacer visible req.session en las vistas
