@@ -1,0 +1,5 @@
+mkdir cert
+cd cert
+openssl genrsa -out quiz-martin-key.pem 2048 -config "C:\OpenSSL-Win32\bin\openssl.cfg"
+openssl req -new -sha256 -key quiz-martin-key.pem -out quiz-martin-csr.pem -config "C:\OpenSSL-Win32\bin\openssl.cfg"
+openssl x509 -req -in quiz-martin-csr.pem -signkey quiz-martin-key.pem -out quiz-martin-cert.pem  -config "C:\OpenSSL-Win32\bin\openssl.cfg"
