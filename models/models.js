@@ -43,7 +43,7 @@ Quiz.hasMany(Comment);
 
 
 exports.Quiz = Quiz; // exportar definición de tabla Quiz
-exports.Comment = Comment; // exportar la tagla Comment
+exports.Comment = Comment; // exportar la tabla Comment
 
 // sequelize.sync() crea e inicializa tabla de preguntas en DB
 // Se modifica .success por .then
