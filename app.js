@@ -46,6 +46,36 @@ app.use(function(req, res, next){
 	next();
 });
 
+// Control de tiempo de conexion sin operaciones y logout automático:
+app.use(function(req, res, next){
+	// Comprobamos si el usuario esta logueado
+	//console.log('Control de tiempo de conexion sin operaciones y logout automático:');
+	if (req.session.user)
+	{		
+		if (!req.session.timeLogin)
+		{
+			req.session.timeLogin = Date.now();
+			//console.log('Inicializamos el contador de tiempo de session: ' + req.session.timeLogin);
+		}
+		else{
+			//console.log('Tiempo sin operaciones: ' + ((Date.now()- req.session.timeLogin)/1000));
+			if((Date.now() - req.session.timeLogin) > 120000 ){
+				delete req.session.user;
+				delete req.session.timeLogin;
+				//console.log('Ha expirado el tiempo de login sin realizar operaiones borramos el objeto session: ');
+			}else{
+				//console.log('Realizamos una operacion logueados y inicializamos el contador: ' + req.session.timeLogin);
+				req.session.timeLogin = Date.now();
+			}
+		}
+		
+	}
+
+	// Hacer visible req.session en las vistas
+	res.locals.session = req.session;
+	next();
+});
+
 app.use('/', routes);
 //app.use('/users', users);
 
